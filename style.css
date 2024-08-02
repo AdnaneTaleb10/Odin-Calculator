@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100vh;
+    
+    font-family: "Pixelify Sans", sans-serif;
+}
+
+@font-face {
+    font-family: "Pixelar";
+    src: URL("./fonts/PixelarRegular.ttf") format("truetype");
+} 
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #282828;
+    color: #ebdbb2;
+    background-image: url("./image/1-bg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Pixelar", san-serif;
+}
+
+a{
+    margin-top: 25px;
+    text-decoration: none;
+    font-size: 2rem;
+    color: #ebdbb2;
+    background-color: #3c3836;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+}
+  
+a:hover {
+    background-color: #504945;
+    color: #fabd2f;
+}
+
+.calculator {
+    width: 23rem;
+    height: 37rem;
+    background-color: #3c3836;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.screen {
+    width: 100%;
+    height: 85px;
+    background-color: #1d2021;
+    color: #ebdbb2;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    box-shadow: inset 0 0 10px #000;
+    overflow: hidden;
+}
+
+.screen .top {
+    font-size: 2rem;
+    color: #b8bb26;
+    text-align: right;
+}
+
+.screen .bottom {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ebdbb2;
+    text-align: right;
+}
+
+.calculator-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 83%;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+button {
+    display: flex;
+    width: 23%;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    border-radius: 15px;
+    border: none;
+    color: #ebdbb2;
+    background-color: #504945;
+    box-shadow: inset -3px -5px #3c3836;
+    transition:
+        background-color 0.2s,
+        box-shadow 0.2s;
+}
+
+#zero{
+    flex-grow: 4;
+    background-color: #b8bb26;
+    box-shadow: inset -3px -5px #98971a;
+}
+
+#zero:hover {
+    background-color: #c0c531;
+}
+  
+#zero:active {
+    background-color: #98971a;
+    box-shadow: inset 3px 5px #282828;
+}
+  
+
+button:hover {
+    background-color: #665c54;
+}
+
+button:active {
+    background-color: #3c3836;
+    box-shadow: inset 3px 5px #282828;
+}
+
+.btn {
+    background-color: #d79921;
+    box-shadow: inset -3px -5px #b57614;
+}
+
+.btn:hover {
+    background-color: #fabd2f;
+}
+
+.btn:active {
+    background-color: #b57614;
+    box-shadow: inset 3px 5px #282828;
+}
