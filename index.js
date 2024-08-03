@@ -9,6 +9,9 @@ function calculate(obj){
         case '×':
             obj.result = Number.isInteger(parseFloat(obj.firstOperand) * parseFloat(obj.secondOperand)) ? parseFloat(obj.firstOperand) * parseFloat(obj.secondOperand) : (parseFloat(obj.firstOperand) * parseFloat(obj.secondOperand)).toFixed(3);
             break;
+        case '*':
+            obj.result = Number.isInteger(parseFloat(obj.firstOperand) * parseFloat(obj.secondOperand)) ? parseFloat(obj.firstOperand) * parseFloat(obj.secondOperand) : (parseFloat(obj.firstOperand) * parseFloat(obj.secondOperand)).toFixed(3);
+            break;
         case '/':
             obj.result = Number.isInteger(parseFloat(obj.firstOperand) / parseFloat(obj.secondOperand)) ? parseFloat(obj.firstOperand) / parseFloat(obj.secondOperand) : (parseFloat(obj.firstOperand) / parseFloat(obj.secondOperand)).toFixed(3);
             break;
@@ -81,7 +84,12 @@ buttons.forEach((btn) => {
                 operationElements.firstOperand = '';
                 operationElements.secondOperand = '';
                 operationElements.operator = '';
-                operationElements.result = 'Infinity';                
+                operationElements.result = '';
+                bottomScreen.textContent = 'Infinity';
+                setTimeout(() => {
+                    bottomScreen.textContent = '';
+                } , 500)
+
             }else{
                 bottomScreen.textContent = resultOperation;
                 operationElements.firstOperand = operationElements.result;
@@ -102,6 +110,84 @@ buttons.forEach((btn) => {
     })
 })
 
+document.addEventListener('keydown' , (e) => {
+    let value = e.key;
+    if((Number.isInteger(parseInt(value)) || value == '.') && operationElements.secondOperand === '' && operationElements.operator === ''){
+        operationElements.firstOperand = operationElements.firstOperand.concat(value);
+
+        //using the cumma only once
+        if(value === '.'){
+            e.target.disabled = true;
+        }
+    }
+
+    if((value == '+' || value == '-' || value == '*' || value == '/') && operationElements.secondOperand === '' && operationElements.operator === '' && operationElements.firstOperand !== ''){
+        operationElements.operator = value;
+    }
+
+    if ((Number.isInteger(parseInt(value)) || value == '.') && operationElements.firstOperand !== '' && operationElements.operator !== ''){
+        document.getElementById('comma').disabled = false;
+        operationElements.secondOperand = operationElements.secondOperand.concat(value);
+
+        //using the cumma only once
+        if(value === '.'){
+            e.target.disabled = true;
+        }
+    }
+
+    if (value == '=' || value == 'Enter') {
+        if (operationElements.firstOperand !== '' && operationElements.secondOperand !== '') {
+            calculate(operationElements);
+            displayOperation(operationElements);
+            bottomScreen.textContent = operationElements.result;
+        }
+
+        setTimeout(() => {
+            if (operationElements.result == 'Infinity') {
+                operationElements.firstOperand = '';
+                operationElements.operator = '';
+                operationElements.secondOperand = '';
+                operationElements.result = '';
+                displayOperation(operationElements);
+                bottomScreen.textContent = '';
+            }
+        }, 1000);
+    }
+
+    if((value == '+' || value == '-' || value == '*' || value == '/') && operationElements.secondOperand !== '' && operationElements.operator !== '' && operationElements.firstOperand !== ''){
+        calculate(operationElements)    
+        let resultOperation = operationElements.result;
+
+        // when the user divide by 0
+        if(operationElements.result == 'Infinity'){
+            operationElements.firstOperand = '';
+            operationElements.secondOperand = '';
+            operationElements.operator = '';
+            operationElements.result = '';
+            bottomScreen.textContent = 'Infinity';
+            setTimeout(() => {
+                bottomScreen.textContent = '';
+            } , 500)                
+        }else{
+            bottomScreen.textContent = resultOperation;
+            operationElements.firstOperand = operationElements.result;
+            operationElements.secondOperand = '';
+            operationElements.operator = value;
+            operationElements.result = '';
+        }
+    }
+
+    // when the user divide by 0
+    if(operationElements.result == 'Infinity'){
+        topScreen.textContent = 'Infinity';
+        operationElements.result = '';
+    }else{
+        displayOperation(operationElements)
+    }    
+    
+
+})
+
 clearButton.addEventListener('click' , () => {
     playSound()
     operationElements.firstOperand = '';
@@ -119,6 +205,17 @@ equalButton.addEventListener('click' , () => {
         displayOperation(operationElements);
         bottomScreen.textContent = operationElements.result;
     }
+
+    setTimeout(()=>{
+        if(operationElements.result == 'Infinity'){
+            operationElements.firstOperand = '';
+            operationElements.operator = '';
+            operationElements.secondOperand = '';
+            operationElements.result = '';
+            displayOperation(operationElements);
+            bottomScreen.textContent = '';
+        }
+    } , 1000)
 })
 
 
